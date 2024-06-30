@@ -1,0 +1,25 @@
+CPU Usage
+Query: Monitor CPU utilization of your application.
+
+100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+Description: Calculates CPU usage percentage across all cores. Adjust [5m] for different time ranges.
+
+Memory Usage
+Query: Track memory consumption of your application.
+
+node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Buffers_bytes - node_memory_Cached_bytes
+Description: Calculates used memory (excluding buffers and cached).
+
+Disk I/O
+Query: Monitor disk read/write operations and latency.
+
+rate(node_disk_reads_completed_total[5m])
+rate(node_disk_writes_completed_total[5m])
+Description: Tracks the rate of completed read and write operations on disks over a 5-minute window.
+
+Network I/O
+Query: Track incoming and outgoing network traffic.
+
+sum by (instance) (rate(node_network_receive_bytes_total[5m]))
+sum by (instance) (rate(node_network_transmit_bytes_total[5m]))
+Description: Sums the rate of incoming and outgoing network traffic (bytes per second) over a 5-minute window for each instance.

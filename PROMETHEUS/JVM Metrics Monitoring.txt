@@ -1,0 +1,19 @@
+
+JVM Metrics Monitoring
+Heap Memory Usage:
+jvm_memory_used_bytes{area="heap"}
+Non-Heap Memory Usage:
+jvm_memory_used_bytes{area="nonheap"}
+Garbage Collection Count:
+rate(jvm_gc_pause_seconds_count[1m])
+Garbage Collection Time:
+rate(jvm_gc_pause_seconds_sum[1m])
+Thread Counts:
+jvm_threads_live_threads
+
+Explanation
+Heap Memory Usage: Monitors the amount of heap memory used.
+Non-Heap Memory Usage: Monitors the amount of non-heap memory used.
+Garbage Collection Count: Tracks the number of garbage collection events.
+Garbage Collection Time: Measures the total time spent in garbage collection.
+Thread Counts: Displays the current number of live threads.

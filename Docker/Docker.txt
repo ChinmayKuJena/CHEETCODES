@@ -1,0 +1,39 @@
+#Build the Docker Image:
+docker build -t image_name .
+
+
+#Run the Docker Container:
+
+docker run [OPTIONS] image_name
+
+examples:
+docker build -t tourroadmap .
+docker run --name tourroadmap -p 3030:3030 -d tourroadmap
+
+
+docker build: Builds the Docker image using your Dockerfile.
+-t image_name: Tags the image with a name.
+docker run: Runs a container from the created image.
+[OPTIONS]: Additional options for running the container (e.g., -p, --name, -d).
+Common Options:
+-p: Port mapping.
+-d: Detached mode.
+--name: Assigns a name to the container.
+-e: Sets environment variables.
+
+#Check running containers:
+docker ps
+#Stop a container:
+docker stop tourroadmap(CONTAINER_ID_OR_NAME)
+#Remove a container:
+docker rm tourroadmap
+
+#Start a stopped container:
+docker start CONTAINER_ID_OR_NAME
+
+#Inspect container details:
+docker inspect CONTAINER_ID_OR_NAME
+#List Docker images:
+docker images
+#Remove an image:
+docker rmi IMAGE_ID_OR_NAME
