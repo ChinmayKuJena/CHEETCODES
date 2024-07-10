@@ -1,0 +1,51 @@
+
+token = "roott" (created during running command)
+--------------------------------------------------------------------------------------------------
+dockerfile + initialize-vault.sh ==>> (for creating key values with dockerfile)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Dockerfile
+# Use the official Vault image from HashiCorp
+FROM hashicorp/vault:latest
+
+# Expose Vault's default port
+EXPOSE 8200
+
+# Copy the initialization script
+COPY initialize-vault.sh /initialize-vault.sh
+
+# Make the script executable
+RUN chmod +x /initialize-vault.sh
+
+# Start Vault in development mode and run the initialization script
+CMD ["sh", "-c", "vault server -dev -dev-root-token-id=roott -dev-listen-address=0.0.0.0:8200 & /initialize-vault.sh"]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+initialize-vault.sh
+
+#!/bin/sh
+
+# Wait for Vault to start
+sleep 5
+
+# Login with the root token
+export VAULT_ADDR='http://127.0.0.1:8200'
+vault login roott
+
+# Enable KV secrets engine (optional as KV is enabled by default in dev mode)
+vault secrets enable -path=secret kv
+
+# Create initial key-value pairs
+vault kv put secret/myapp key.email=myemail@example.com key.password=mypassword
+
+# Keep the container running
+tail -f /dev/null
+--------------------------------------------------------------------------------------------------
+
+##starting step
+export VAULT_ADDR="http:localip:8200" (for local system )
+export VAULT_ADDR="http://test-env.eba-b4mqum2d.ap-south-1.elasticbeanstalk.com" (for aws)
+
+##creating kv
+vault kv put secret/gs-vault-config example.username=demouser example.password=demopassword
+
+
