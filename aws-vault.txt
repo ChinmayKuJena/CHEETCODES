@@ -49,3 +49,4 @@ export VAULT_ADDR="http://test-env.eba-b4mqum2d.ap-south-1.elasticbeanstalk.com"
 vault kv put secret/gs-vault-config example.username=demouser example.password=demopassword
 
 
+for spring boot : https://github.com/ChinmayKuJena/Vault-service.git
